@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Picture Magic ✨ | Transform Your Images</title>
+    <meta name="description"
+        content="Upload an image and let AI transform it with your creative prompts. Powered by fal.ai's nano-banana model.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="background-effects">
+        <div class="gradient-overlay"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="grid-overlay"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-shapes">
+        <div class="shape shape-1">✨</div>
+        <div class="shape shape-2">🎨</div>
+        <div class="shape shape-3">🪄</div>
+        <div class="shape shape-4">⭐</div>
+        <div class="shape shape-5">💫</div>
+    </div>
+
+    <main class="container">
+        <header class="header">
+            <div class="logo-badge">
+                <span class="logo-icon">🎨</span>
+                <span class="logo-glow"></span>
+            </div>
+            <h1 class="title">
+                <span class="title-word">AI</span>
+                <span class="title-word">Picture</span>
+                <span class="title-word title-magic">Magic</span>
+            </h1>
+            <p class="subtitle">
+                <span class="subtitle-line">Transform your photos with the power of AI</span>
+                <span class="subtitle-accent">✨ Just upload, describe, and watch the magic ✨</span>
+            </p>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-icon">🚀</span>
+                <span class="stat-text">Powered by fal.ai</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-icon">⚡</span>
+                <span class="stat-text">Fast Generation</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-icon">🎯</span>
+                <span class="stat-text">High Quality</span>
+            </div>
+        </div>
+
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Upload Section -->
+            <section class="card upload-section glass-card">
+                <div class="card-glow"></div>
+                <div class="section-header">
+                    <div class="section-icon-wrapper upload-icon-wrapper">
+                        <span class="section-icon">📸</span>
+                    </div>
+                    <div class="section-title-group">
+                        <h2>Upload Image</h2>
+                        <span class="section-subtitle">Drag & drop or click to browse</span>
+                    </div>
+                </div>
+                <div id="dropZone" class="drop-zone">
+                    <div class="drop-zone-border"></div>
+                    <div class="drop-zone-content">
+                        <div class="upload-icon-container">
+                            <div class="upload-ring"></div>
+                            <div class="upload-icon-inner">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="drop-text">Drop your image here</p>
+                        <p class="drop-hint">PNG, JPG, WEBP up to 10MB</p>
+                        <button class="browse-btn">
+                            <span>📁</span> Browse Files
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+                <div id="previewContainer" class="preview-container hidden">
+                    <div class="preview-frame">
+                        <img id="previewImage" class="preview-image" alt="Preview">
+                        <div class="preview-overlay">
+                            <span class="preview-label">Original Image</span>
+                        </div>
+                    </div>
+                    <button id="removeImage" class="remove-btn" title="Remove image">
+                        <span>✕</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Prompt Section -->
+            <section class="card prompt-section glass-card">
+                <div class="card-glow"></div>
+                <div class="section-header">
+                    <div class="section-icon-wrapper prompt-icon-wrapper">
+                        <span class="section-icon">💭</span>
+                    </div>
+                    <div class="section-title-group">
+                        <h2>Describe Your Vision</h2>
+                        <span class="section-subtitle">Be creative and specific</span>
+                    </div>
+                </div>
+                <div class="prompt-wrapper">
+                    <textarea id="promptInput" class="prompt-input premium-input" placeholder="Describe how you want to transform your image...
+
+Example: 'Make them wear a wizard hat and magical robes, add sparkles and mystical fog'" rows="5"></textarea>
+                    <div class="prompt-footer">
+                        <span class="char-counter" id="charCounter">0 characters</span>
+                    </div>
+                </div>
+
+                <div class="suggestions-wrapper">
+                    <div class="suggestions-header">
+                        <span class="suggestions-icon">✨</span>
+                        <span class="suggestions-label">Quick Ideas</span>
+                    </div>
+                    <div class="prompt-suggestions">
+                        <button class="suggestion-btn"
+                            data-prompt="Make them wear a wizard hat and magical robes, surrounded by mystical sparkles">
+                            <span class="suggestion-emoji">🧙</span>
+                            <span class="suggestion-text">Wizard</span>
+                        </button>
+                        <button class="suggestion-btn"
+                            data-prompt="Transform into vibrant pop art style with bold colors like Andy Warhol">
+                            <span class="suggestion-emoji">🎨</span>
+                            <span class="suggestion-text">Pop Art</span>
+                        </button>
+                        <button class="suggestion-btn"
+                            data-prompt="Add a stunning galaxy with stars, nebulas and cosmic colors in the background">
+                            <span class="suggestion-emoji">🌌</span>
+                            <span class="suggestion-text">Galaxy</span>
+                        </button>
+                        <button class="suggestion-btn"
+                            data-prompt="Make it look like a cinematic scene from a sci-fi movie with neon lights">
+                            <span class="suggestion-emoji">🎬</span>
+                            <span class="suggestion-text">Cinematic</span>
+                        </button>
+                        <button class="suggestion-btn"
+                            data-prompt="Transform into beautiful watercolor painting style with soft edges">
+                            <span class="suggestion-emoji">🖌️</span>
+                            <span class="suggestion-text">Watercolor</span>
+                        </button>
+                        <button class="suggestion-btn"
+                            data-prompt="Give them a superhero cape and costume with epic lighting">
+                            <span class="suggestion-emoji">🦸</span>
+                            <span class="suggestion-text">Superhero</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="generateBtn" class="generate-btn" disabled>
+            <div class="btn-bg"></div>
+            <div class="btn-content">
+                <span class="btn-icon">✨</span>
+                <span class="btn-text">Generate Magic</span>
+                <span class="btn-icon">✨</span>
+            </div>
+            <div class="btn-loader hidden">
+                <div class="loader-ring"></div>
+                <span class="loader-text">Creating your masterpiece...</span>
+            </div>
+            <div class="btn-shine"></div>
+        </button>
+
+        <!-- Progress Indicator -->
+        <div id="progressSection" class="progress-section hidden">
+            <div class="progress-card glass-card">
+                <div class="progress-header">
+                    <div class="progress-spinner"></div>
+                    <span class="progress-title">AI is working its magic...</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <p class="progress-status" id="progressStatus">Initializing generation...</p>
+            </div>
+        </div>
+
+        <!-- Result Section -->
+        <section id="resultSection" class="card result-section glass-card hidden">
+            <div class="card-glow"></div>
+            <div class="section-header result-header">
+                <div class="section-icon-wrapper result-icon-wrapper">
+                    <span class="section-icon">🖼️</span>
+                </div>
+                <div class="section-title-group">
+                    <h2>Your Creation</h2>
+                    <span class="section-subtitle result-subtitle">✨ Transformation complete!</span>
+                </div>
+            </div>
+
+            <div class="result-showcase">
+                <div class="comparison-slider">
+                    <div class="comparison-item before">
+                        <div class="comparison-badge">Before</div>
+                        <img id="originalResult" class="result-image" alt="Original">
+                    </div>
+                    <div class="comparison-arrow-container">
+                        <div class="comparison-arrow">
+                            <span>→</span>
+                        </div>
+                    </div>
+                    <div class="comparison-item after">
+                        <div class="comparison-badge success">After</div>
+                        <img id="generatedImage" class="result-image generated" alt="Generated">
+                        <div class="image-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button id="downloadBtn" class="action-btn primary-btn">
+                    <span class="btn-icon-small">⬇️</span>
+                    <span>Download</span>
+                </button>
+                <button id="shareBtn" class="action-btn secondary-btn">
+                    <span class="btn-icon-small">📋</span>
+                    <span>Copy Link</span>
+                </button>
+                <button id="tryAgainBtn" class="action-btn outline-btn">
+                    <span class="btn-icon-small">🔄</span>
+                    <span>New Prompt</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message hidden">
+            <div class="error-icon-wrapper">
+                <span class="error-icon">⚠️</span>
+            </div>
+            <div class="error-content">
+                <span class="error-title">Oops! Something went wrong</span>
+                <span id="errorText" class="error-text"></span>
+            </div>
+            <button id="errorDismiss" class="error-dismiss">✕</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>🎨</span>
+                <span>AI Picture Magic</span>
+            </div>
+            <p class="footer-text">
+                Made with ☕ by Jose Gabriel Rivera Gagliano
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
